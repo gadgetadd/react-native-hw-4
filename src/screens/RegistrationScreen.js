@@ -8,9 +8,12 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Keyboard,
     ImageBackground
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import background from '../assets/images/background.jpg'
 import { Fontisto } from '@expo/vector-icons';
 
@@ -20,6 +23,7 @@ export default function RegistrationScreen() {
     const [login, setLogin] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigation = useNavigation();
 
     const handleRegister = () => {
         const formData = { login, email, password }
@@ -27,6 +31,7 @@ export default function RegistrationScreen() {
         setLogin('');
         setEmail('');
         setPassword('');
+        navigation.navigate("Home")
     }
 
     return (
@@ -60,7 +65,9 @@ export default function RegistrationScreen() {
                         />
                     </KeyboardAvoidingView>
                     <Button title="Register" color="#FF6C00" onPress={handleRegister} />
-                    <Text style={styles.text}>Already have an account ? Log in</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                        <Text style={styles.text}>Already have an account ? Log in</Text>
+                    </TouchableOpacity>
                 </View>
             </ImageBackground >
         </TouchableWithoutFeedback >

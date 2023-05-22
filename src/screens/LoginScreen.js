@@ -8,22 +8,26 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Keyboard,
     ImageBackground
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import background from '../assets/images/background.jpg'
 import { Fontisto } from '@expo/vector-icons';
 
-
 export default function LoginScreen() {
+    
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const navigation = useNavigation();
 
     const handleLogin = () => {
         const formData = { login, password }
         console.log(formData);
         setLogin('');
         setPassword('');
+        navigation.navigate("Home")
     }
 
     return (
@@ -50,7 +54,9 @@ export default function LoginScreen() {
                         />
                     </KeyboardAvoidingView>
                     <Button title="Login" color="#FF6C00" onPress={handleLogin} />
-                    <Text style={styles.text}>Don't have an account? Register</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                        <Text style={styles.text}>Don't have an account? Register</Text>
+                    </TouchableOpacity>
                 </View>
             </ImageBackground >
         </TouchableWithoutFeedback >
